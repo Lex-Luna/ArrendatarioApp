@@ -14,7 +14,8 @@ namespace ArrendatarioPilasApp
             InitializeComponent();
 
             DependencyService.Register<MockDataStore>();
-            MainPage = new AppShell();
+            //MainPage = new AppShell();
+            MainPage = new NavigationPage(new Login());
         }
 
         protected override void OnStart()

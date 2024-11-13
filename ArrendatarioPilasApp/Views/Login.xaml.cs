@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ArrendatarioPilasApp.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace ArrendatarioPilasApp.Views
         public Login()
         {
             InitializeComponent();
+            BindingContext = new LoginVM(Navigation);
         }
     }
 }

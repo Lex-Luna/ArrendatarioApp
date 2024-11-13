@@ -1,12 +1,123 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ArrendatarioPilasApp.Views.Login">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Login!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+             x:Class="ArrendatarioPilasApp.Views.Login"
+             NavigationPage.HasNavigationBar="false">
+    <ScrollView>
+        <Grid VerticalOptions="FillAndExpand" RowDefinitions="*">
+            <Frame VerticalOptions="FillAndExpand" x:Name="MenuLogin" IsVisible="{Binding PanelLogin}">
+                <Frame.Background>
+                    <LinearGradientBrush EndPoint="1,0">
+                        <GradientStop Color="White" Offset="0.1"/>
+                        <GradientStop Color="Bisque" Offset="1.0"/>
+                    </LinearGradientBrush>
+                </Frame.Background>
+                <StackLayout VerticalOptions="Center" >
+
+
+
+                    <Grid Margin="20">
+
+                        <!--Definicion de FIlas-->
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid VerticalOptions="Center" Grid.Row="0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <Frame  BackgroundColor="Transparent"
+                            WidthRequest="280" HorizontalOptions="Center">
+                                <Image Source="https://i.ibb.co/6mcwQ0R/Arrendatario.png" />
+                            </Frame>
+                        </Grid>
+                        <StackLayout Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="200">
+                            <!--Stack Correo-->
+                            <StackLayout Orientation="Horizontal">
+                                <Image WidthRequest="25" Source="gmail.png"/>
+                                <Entry Placeholder="Correo"
+                   Text="{Binding Correo}"
+                   PlaceholderColor="#7F7F7F"
+                   TextColor="White"
+                   FontAttributes="Bold"
+                   WidthRequest="180"/>
+                            </StackLayout>
+                            <!--Stack Contraseña-->
+                            <StackLayout Orientation="Horizontal">
+                                <Image WidthRequest="25" Source="lock.png"/>
+                                <Entry Placeholder="Contraseña"
+                   Text="{Binding Contraseña}"
+                   PlaceholderColor="#7F7F7F"
+                   TextColor="White"
+                   FontAttributes="Bold"
+                   WidthRequest="180" IsPassword="True" />
+                            </StackLayout>
+                            <!--Boton olvide Contraseña-->
+                            <Button Text="Olvide mi contraseña"  BackgroundColor="Transparent" 
+                                TextColor="White" FontSize="Micro" x:Name="Recuperala"
+                                Command="{Binding VistaRecuperacionComand}"/>
+                            <!--Boton Iniciar secion-->
+                            <Button Text="Iniciar" HorizontalOptions="Center"
+                    BorderColor="#ACCBE4"
+                    BorderWidth="3"
+                TextColor="#ACCBE4"
+                    Margin="0,30,0,0"
+                BackgroundColor="Transparent"
+                FontSize="16" TextTransform="None"
+                FontAttributes="Bold"
+                CornerRadius="15" 
+                Command="{Binding btnIniciarcomamd}"    />
+                            <!--Boton Crear CUenta-->
+                            <Button  TextColor="#ACCBE4"
+                     BackgroundColor="Transparent"
+                     Text="Crear Cuenta" 
+                     FontAttributes="Bold"
+                     FontSize="16" 
+                                 
+                     CornerRadius="15"
+                     HorizontalOptions="Center"
+                     BorderColor="#ACCBE4"
+                    BorderWidth="3"
+                     TextTransform="None"
+                     Command="{Binding btnCrearCuentaComand}"/>
+
+                        </StackLayout>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+
+
+            <Frame VerticalOptions="FillAndExpand" x:Name="RecuperacionContraseña" IsVisible="{Binding RecuperarContrasenia}">
+                <Frame.Background>
+                    <LinearGradientBrush EndPoint="1,0">
+                        <GradientStop Color="#132C6A" Offset="0.1"/>
+                        <GradientStop Color="#350A56" Offset="1.0"/>
+                    </LinearGradientBrush>
+                </Frame.Background>
+                <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label Text="¿Olvidaste tu Contraseña?" HorizontalTextAlignment="Center"
+                       FontAttributes="Bold" TextColor="#ACCBE4" FontSize="Medium"/>
+                    <Entry Placeholder="Ingresa tu email" Text="{Binding Correo}" />
+                    <Button Text="Recupera tu contraseña"  x:Name="RecuperarContrasenia" 
+                         BackgroundColor="Transparent"
+                        BorderColor="#ACCBE4" CornerRadius="15" TextColor="#ACCBE4"
+                        Command="{Binding RecuperarCuentaComand}"
+                        TextTransform="None" Padding="0" BorderWidth="3"/>
+
+                    <Button Text="Volver"  x:Name="Volver" TextColor="#ACCBE4" 
+                        BackgroundColor="Transparent" Command="{Binding VistaPrincipalComand}"
+                        BorderColor="#ACCBE4" CornerRadius="15" TextTransform="None"
+                        BorderWidth="3" Padding="0" />
+
+                </StackLayout>
+            </Frame>
+        </Grid>
+    </ScrollView>
+
+
 </ContentPage>

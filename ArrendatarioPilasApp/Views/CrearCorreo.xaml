@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ArrendatarioPilasApp.Views.CrearCorreo">
+    <ScrollView>
+        <Grid >
+            <Grid.RowDefinitions >
+                <RowDefinition Height="280"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            
+            <Frame  BackgroundColor="Transparent"
+                            WidthRequest="280" 
+                HorizontalOptions="Center" Margin="0,20,0,0">
+                <Image Source="LogoHuecasApp.png" />
+            </Frame>
+            <StackLayout Grid.Row="1"
+                 Margin="20"
+                 Orientation="Vertical"
+                     HorizontalOptions="Center">
+                <StackLayout Orientation="Horizontal" HeightRequest="50">
+
+                    <ImageButton Source="https://i.ibb.co/RjRCr5M/camara-fotografica.png"
+                   x:Name="Fotoperfil" Command="{Binding TomarFotoComand}" BackgroundColor="Transparent"/>
+                </StackLayout>
+                <Entry TextColor="White" FontAttributes="Bold" 
+               PlaceholderColor="#7F7F7F"
+               Placeholder="Nombre"
+                   Text="{Binding TxtNombre}"/>
+                <Entry TextColor="White" FontAttributes="Bold" 
+               PlaceholderColor="#7F7F7F"
+               Placeholder="Apellido"
+                   Text="{Binding TxtApellido}"/>
+                <Entry TextColor="White" FontAttributes="Bold" 
+               Text="{Binding TxtCorreo}"
+               PlaceholderColor="#7F7F7F"
+               Placeholder="Correo"/>
+                <Entry TextColor="White" FontAttributes="Bold"
+               Text="{Binding TxtContraseña}"
+               PlaceholderColor="#7F7F7F"
+               Placeholder="Contraseña"
+               IsPassword="True"/>
+                <Button Text="Crear cuenta"
+                    Command="{Binding btnCrearcuentaComand}"
+                BackgroundColor="#ACCBE4"
+                TextColor="Black"
+                CornerRadius="10"
+                WidthRequest="250"
+                    Margin="0,20,0,0"
+                HorizontalOptions="Center"
+                FontAttributes="Bold"
+                x:Name="btnCrearcuenta"/>
+                <Button Text="Volver"
+                    Command="{Binding Volvercomamd}"
+                BackgroundColor="#ACCBE4"
+                TextColor="Black"
+                CornerRadius="10"
+                WidthRequest="250"
+                    Margin="0,20,0,0"
+                HorizontalOptions="Center"
+                FontAttributes="Bold"
+                x:Name="btnAtras"/>
+
+
+            </StackLayout>
+
+        </Grid>
+    </ScrollView>
+
+</ContentPage>
