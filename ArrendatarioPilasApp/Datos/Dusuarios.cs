@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Firebase.Database.Query;
 using System.Linq;
+using Firebase.Database;
+using System.Text.RegularExpressions;
 
 namespace ArrendatarioPilasApp.Datos
 {
@@ -17,6 +19,8 @@ namespace ArrendatarioPilasApp.Datos
         public string _IdUsuario;
         #endregion
         #region Insertar
+        //TODO: no lee el id usuario
+
         public async Task<string> InserUsuario(Musuario parametros)
         {
             try
@@ -145,25 +149,65 @@ namespace ArrendatarioPilasApp.Datos
 
         #endregion
         #region Mostrar
-        public async Task<List<Musuario>> MostUsuario()
+
+        List<Musuario> ListUsuario = new List<Musuario>();
+
+        public async Task<string> ListaUsuarios()
         {
-            return (await Conexiones.Conexiones.firebase
-                .Child("Usuario")
-                .OnceAsync<Musuario>()).Select(item => new Musuario
+            var usuarioBdd = await Conexiones.Conexiones.firebase.
+                Child("Usuario")
+                .OrderByKey()
+                .OnceAsync<Musuario>();
+
+            if (usuarioBdd != null)
+            {
+                var usuarios = usuarioBdd.Select(item => new Musuario
                 {
                     IdUsuario = item.Key,
-                    Admin = item.Object.Admin,
+                    Nombre = item.Object.Nombre,
+                    Correo = item.Object.Correo,
                     Apellido = item.Object.Apellido,
                     Contrasenia = item.Object.Contrasenia,
-                    FotoUsuario = item.Object.FotoUsuario,
-                    Correo = item.Object.Correo,
                     Estado = item.Object.Estado,
-                    IdAdministrador = item.Object.IdAdministrador,
-                    Nombre = item.Object.Nombre,
-                    NumEncuesta = item.Object.NumEncuesta,
-                    EncuestasEliminadas = item.Object.EncuestasEliminadas
-
                 }).ToList();
+
+                // 👈 Pon el breakpoint aquí
+                //var json = System.Text.Json.JsonSerializer.Serialize(usuarios);
+
+                // O aquí 👈 para ver el resultado final
+
+                return usuarios.ToString();
+            }
+
+            return "[]";
+        }
+        public async Task<List<Musuario>> MostUsuario()
+        {
+            var usuarios = (await Conexiones.Conexiones.firebase
+           .Child("Usuario")
+           .OnceAsync<Musuario>()).Select(item => new Musuario
+           {
+               IdUsuario = item.Key,
+               Admin = item.Object.Admin,
+               Apellido = item.Object.Apellido,
+               Contrasenia = item.Object.Contrasenia,
+               FotoUsuario = item.Object.FotoUsuario,
+               Correo = item.Object.Correo,
+               Estado = item.Object.Estado,
+               IdAdministrador = item.Object.IdAdministrador,
+               Nombre = item.Object.Nombre,
+               NumEncuesta = item.Object.NumEncuesta,
+               EncuestasEliminadas = item.Object.EncuestasEliminadas
+
+           }).ToList();
+
+            // Convertir a JSON
+            var json = Newtonsoft.Json.JsonConvert.SerializeObject(usuarios);
+
+            // Imprimir en la consola para depuración
+            System.Diagnostics.Debug.WriteLine(json);
+
+            return usuarios;
         }
         public async Task<List<Musuario>> MostUsuarioXcorreo(Musuario p)
         {

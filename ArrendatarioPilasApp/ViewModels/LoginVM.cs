@@ -1,6 +1,11 @@
-﻿using ArrendatarioPilasApp.Views;
+﻿using ArrendatarioPilasApp.Datos;
+using ArrendatarioPilasApp.Models;
+using ArrendatarioPilasApp.Views;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -94,8 +99,8 @@ namespace ArrendatarioPilasApp.ViewModels
         {
             try
             {
-                /*var funcion = new CuentaD();
-                await funcion.ValidCuenta(Correo, Contraseña);*/
+                var funcion = new DCrearCuenta();
+                await funcion.ValidCuenta(Correo, Contraseña);
 
             }
             catch (Exception)
@@ -135,6 +140,37 @@ namespace ArrendatarioPilasApp.ViewModels
         {
             await Navigation.PushAsync(new CrearCorreo());
         }
+        public async Task<string> VerUsuario()
+        {
+            try
+            {
+                Dusuarios funcion = new Dusuarios();
+                var datos = await funcion.MostUsuario();
+
+                var settings = new JsonSerializerSettings
+                {
+                    Formatting = Formatting.Indented,
+                    NullValueHandling = NullValueHandling.Ignore,
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                };
+
+                if (datos != null && datos.Any())
+                {
+                    return JsonConvert.SerializeObject(datos, settings);
+                }
+                else
+                {
+                    return "No se encontraron usuarios";
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", "No se pudo obtener la lista de usuarios: " + ex.Message, "OK");
+                Debug.WriteLine($"Error en VerUsuario: {ex.Message}");
+                return "Error al obtener usuarios: " + ex.Message;
+            }
+        }
+
         #endregion
         #region COMANDOS
 
@@ -143,6 +179,7 @@ namespace ArrendatarioPilasApp.ViewModels
         public ICommand RecuperarCuentaComand => new Command(async () => await ResetPasswordAsync());
         public ICommand VistaPrincipalComand => new Command(async () => await VistaPrincipal());
         public ICommand VistaRecuperacionComand => new Command(async () => await VistaRecuperacion());
+        public ICommand btnVerUsuario => new Command(async () => await VerUsuario());
 
         #endregion
     }

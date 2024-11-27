@@ -39,9 +39,10 @@ namespace ArrendatarioPilasApp.Datos
             public async Task CrearCuenta(string correo, string pass)
             {
                 var authProvider = new FirebaseAuthProvider(new FirebaseConfig(Conexiones.Conexiones.WebapyFirebase));
-                await authProvider.CreateUserWithEmailAndPasswordAsync(correo, pass);
+                var auth =await authProvider.CreateUserWithEmailAndPasswordAsync(correo, pass);
+                Preferences.Set("MyFirebaseRefreshToken", JsonConvert.SerializeObject(auth));
 
-            }
+        }
             public async Task ValidCuenta(string correo, string pass)
             {
                 try

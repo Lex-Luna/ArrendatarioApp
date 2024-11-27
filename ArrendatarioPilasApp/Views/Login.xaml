@@ -86,6 +86,9 @@
                      TextTransform="None"
                      Command="{Binding btnCrearCuentaComand}"/>
 
+                            <Button Text="VerUsuario"
+        Command="{Binding btnVerUsuario}"/>
+
                         </StackLayout>
                     </Grid>
                 </StackLayout>

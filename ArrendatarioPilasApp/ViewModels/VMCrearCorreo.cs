@@ -1,4 +1,6 @@
-﻿using Firebase.Auth;
+﻿using ArrendatarioPilasApp.Datos;
+using ArrendatarioPilasApp.Models;
+using Firebase.Auth;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -88,58 +90,67 @@ namespace ArrendatarioPilasApp.ViewModels
 
         public async Task CrearCuenta()
         {
-            /*var funcion = new CuentaD();
-            await funcion.CrearCuenta(TxtCorreo, TxtContraseña);*/
+            var funcion = new DCrearCuenta();
+            await funcion.CrearCuenta(TxtCorreo, TxtContraseña);
         }
 
         private async Task IniciarSesion()
         {
-            /*var funcion = new CuentaD();
-            await funcion.ValidCuenta(TxtCorreo, TxtContraseña);*/
+            var funcion = new DCrearCuenta();
+            await funcion.ValidCuenta(TxtCorreo, TxtContraseña);
         }
 
         public async Task<string> ObtenerIdUsuario()
         {
+            Respuesta respuesta = new Respuesta();
             try
             {
-                /*var authProvider = new FirebaseAuthProvider(new FirebaseConfig(Constantes.WebapyFirebase));
+                var authProvider = new FirebaseAuthProvider(new FirebaseConfig(Conexiones.Conexiones.WebapyFirebase));
                 var guardarId = JsonConvert.DeserializeObject<FirebaseAuth>(Preferences.Get("MyFirebaseRefreshToken", ""));
-                var refrescarCOntenido = await authProvider.RefreshAuthAsync(guardarId);*/
+                var refrescarCOntenido = await authProvider.RefreshAuthAsync(guardarId);
                 /*Esete es el token que se guarda en el Usuario*/
-                /*Preferences.Set("MyFirebaseRefreshToken", JsonConvert.SerializeObject(refrescarCOntenido));
-                _IdUsuario = guardarId.User.LocalId;*/
-                //TODO: no se si de error en el futuro la linea de abajo
+                /*
+                */
+                Preferences.Set("MyFirebaseRefreshToken", JsonConvert.SerializeObject(refrescarCOntenido));
+                _IdUsuario = guardarId.User.LocalId;
+
+                respuesta.Exito = 1;
                 return _IdUsuario;
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                await DisplayAlert("Alerta", "X tu seguridad la sesion se a cerrado", "Ok");
+                {
+                    await DisplayAlert("Alerta", "X tu seguridad la sesion se a cerrado", "Ok");
+                    respuesta.Exito = 0;
+                    respuesta.Mensaje= ex.Message;
 
+                }
+                return _IdUsuario;
             }
-            return _IdUsuario;
         }
 
-        async Task NavContenedor()
+        public async Task NavContenedor()
         {
             /*await Navigation.PushAsync(new NavigationPage(new Contenedor()));*/
         }
 
-        public async Task InsertarUsuario()
+        async Task InsertarUsuario()
         {
             try
             {
-                /*await SubirFotoUser();
-                var funcion = new UsuarioD();
-                var parametros = new UsuarioM();
+                //await SubirFo
+                //toUser();
+                var funcion = new Dusuarios();
+                var parametros = new Musuario();
                 parametros.Apellido = TxtApellido;
-                parametros.FotoUsuario = rutafoto;
+                //parametros.FotoUsuario = rutafoto;
                 parametros.Contrasenia = TxtContraseña;
                 parametros.Correo = TxtCorreo;
                 parametros.Estado = true;
-                parametros.IdAdministrador = "lUUpQuSwqibNTFqEq4LVQKK8kEG2";
+                //parametros.IdAdministrador = "lUUpQuSwqibNTFqEq4LVQKK8kEG2";
                 parametros.Nombre = TxtNombre;
-                _IdUsuario = await funcion.InserUsuario(parametros);*/
+                _IdUsuario = await funcion.InserUsuario(parametros);
             }
             catch (Exception er)
             {
@@ -200,7 +211,7 @@ namespace ArrendatarioPilasApp.ViewModels
 
 
 
-        private async Task Volver()
+        public async Task Volver()
         {
             await Navigation.PopAsync();
         }

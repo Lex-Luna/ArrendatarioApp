@@ -19,11 +19,12 @@
                  Margin="20"
                  Orientation="Vertical"
                      HorizontalOptions="Center">
-                <StackLayout Orientation="Horizontal" HeightRequest="50">
+                
+                <!--StackLayout Orientation="Horizontal" HeightRequest="50">
 
                     <ImageButton Source="https://i.ibb.co/RjRCr5M/camara-fotografica.png"
                    x:Name="Fotoperfil" Command="{Binding TomarFotoComand}" BackgroundColor="Transparent"/>
-                </StackLayout>
+                </StackLayout-->
                 <Entry TextColor="White" FontAttributes="Bold" 
                PlaceholderColor="#7F7F7F"
                Placeholder="Nombre"
